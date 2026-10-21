@@ -1,10 +1,11 @@
 /** ***************************************************************************
  *   file: FPCameraController.java
  *   author: Jose Salas
+ *   contributors: Keanu Arao
  *   class: CS 4450 - Computer Graphics
  *
  *   assignment: Final Program
- *   date last modified: 10/20/2026
+ *   date last modified: 10/21/2026
  *
  *   purpose: Implements the first-person camera controller for navigating
  *   a 3D scene.
@@ -29,7 +30,7 @@ public class FPCameraController {
 
     private float yaw = 0.0f;   // rotation around the y axis
     private float pitch = 0.0f; // rotation around the x axis
-
+    
     // Constructor for the camera controller
     public FPCameraController(float x, float y, float z) {
         // Initialize the camera's position and initial position vectors
@@ -38,6 +39,58 @@ public class FPCameraController {
         IPosition.x = 0f;
         IPosition.y = 15f;
         IPosition.z = 0f;
+    }
+    
+    // Public Method: setCurrentPosition
+    // Purpose: sets the current position of the Camera Controller object
+    public void setCurrentPosition(float x, float y, float z) {
+        this.position.x = x;
+        this.position.y = y;
+        this.position.z = z;
+    }
+    
+    // Public Method: setInitialPosition
+    // Purpose: sets the initial position of the Camera Controller object
+    public void setInitialPosition(float x, float y, float z) {
+        this.IPosition.x = x;
+        this.IPosition.y = y;
+        this.IPosition.z = z;
+    }
+    
+    // Public Method: getCurrentPosition
+    // Purpose: gets the current position of the Camera Controller object
+    public Vector3f getCurrentPosition() {
+        return this.position;
+    }
+    
+    // Public Method: getInitialPosition
+    // Purpose: gets the initial position of the Camera Controller object
+    public Vector3f getInitialPosition() {
+        return this.IPosition;
+    }
+    
+    // Public Method: setYaw
+    // Purpose: sets the yaw to a float value y
+    public void setYaw(float y) {
+        this.yaw = y;
+    }
+    
+    // Public Method: getYaw
+    // Purpose: gets the current yaw value
+    public float getYaw() {
+        return this.yaw;
+    }
+    
+    // Public Method: setPitch
+    // Purpose: sets the pitch to a float value p
+    public void setPitch(float p) {
+        this.pitch = p;
+    }
+    
+    // Public Method: getPitch
+    // Purpose: Gets the current pitch value
+    public float getPitch() {
+        return this.pitch;
     }
 
     // Public Method: Increment the camera's current yaw rotation

@@ -2,6 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
+
+/** ***************************************************************************
+ *   file: Final_Program.java
+ *   author: Jose Salas
+ *   contributors: Keanu Arao
+ *   class: CS 4450 - Computer Graphics
+ *
+ *   assignment: Final Program
+ *   date last modified: 10/21/2026
+ *
+ *   purpose:
+ * 
+ * 
+ *   [NOTE] : (May not be general) The Java Platform in the Libraries Properties
+ *              may have to be changed for each person running program.
+ *            Also remember to edit VM options
+ **************************************************************************** */
 package final_program;
 
 import org.lwjgl.opengl.Display;
@@ -16,6 +33,8 @@ public class Final_Program {
     private DisplayMode displayMode;
     private FPCameraController fp = new FPCameraController(0.0f, 0.0f, -3.0f);
     
+    // method:
+    // purpose:
     public void start(){
         try {
            createWindow();
@@ -26,6 +45,8 @@ public class Final_Program {
         }
     }
     
+    // method:
+    // purpose:
     public void createWindow() throws Exception{
         Display.setFullscreen(false);
         
@@ -47,6 +68,8 @@ public class Final_Program {
         Display.create();
     }
     
+    // method:
+    // purpose:
     public void initGL() {
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         
@@ -65,6 +88,8 @@ public class Final_Program {
         
     }
   
+    // method:
+    // purpose:
     public static void main(String[] args) {
         Final_Program program = new Final_Program();
         program.start();

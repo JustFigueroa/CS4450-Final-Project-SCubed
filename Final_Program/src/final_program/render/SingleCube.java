@@ -1,6 +1,6 @@
 /*****************************************************************************
  *   file: SingleCube.java
- *   author: 
+ *   author:
  *   class: CS 4450 - Computer Graphics
  *
  *   assignment: Final Program 
