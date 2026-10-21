@@ -1,0 +1,19 @@
+# NetBeans generated files
+build/
+dist/
+
+# Java compiled files
+*.class
+
+# User-specific NetBeans settings
+nbproject/private/
+
+# macOS filets
+.DS_Store
+
+# IDE temporary files
+*.log
+
+# JVM crash logs
+hs_err_pid*.log
+replay_pid*.log
