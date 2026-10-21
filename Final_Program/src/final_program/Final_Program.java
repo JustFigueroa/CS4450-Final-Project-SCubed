@@ -6,7 +6,7 @@
 /** ***************************************************************************
  *   file: Final_Program.java
  *   author: Jose Salas
- *   contributors: Keanu Arao
+ *   contributors: Justin Figueroa
  *   class: CS 4450 - Computer Graphics
  *
  *   assignment: Final Program
