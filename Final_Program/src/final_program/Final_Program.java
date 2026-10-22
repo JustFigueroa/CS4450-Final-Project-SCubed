@@ -31,7 +31,7 @@ import final_program.camera.FPCameraController;
 public class Final_Program {
     
     private DisplayMode displayMode;
-    private FPCameraController fp = new FPCameraController(0.0f, 0.0f, -3.0f);
+    private FPCameraController fp = new FPCameraController(0.0f, 0.0f, 3.0f);
     
     // method:
     // purpose:

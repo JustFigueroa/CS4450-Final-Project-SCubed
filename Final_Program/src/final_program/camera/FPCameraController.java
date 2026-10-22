@@ -5,7 +5,7 @@
  *   class: CS 4450 - Computer Graphics
  *
  *   assignment: Final Program
- *   date last modified: 10/21/2026
+ *   date last modified: 10/22/2026
  *
  *   purpose: Implements the first-person camera controller for navigating
  *   a 3D scene.
@@ -109,8 +109,8 @@ public class FPCameraController {
         float zOffset = distance * (float) Math.cos(Math.toRadians(yaw));
 
         // Update camera's position based on the offset calculations
-        position.x -= xOffset;
-        position.z += zOffset;
+        position.x += xOffset;
+        position.z -= zOffset;
     }
 
     // Public Method: Move camera backwards relative to current yaw rotation
@@ -118,8 +118,8 @@ public class FPCameraController {
         float xOffset = distance * (float) Math.sin(Math.toRadians(yaw));
         float zOffset = distance * (float) Math.cos(Math.toRadians(yaw));
 
-        position.x += xOffset;
-        position.z -= zOffset;
+        position.x -= xOffset;
+        position.z += zOffset;
     }
 
     // Public Method: Strafe the camera to the left relative to current yaw rotation
@@ -127,8 +127,8 @@ public class FPCameraController {
         float xOffset = distance * (float) Math.sin(Math.toRadians(yaw - 90));
         float zOffset = distance * (float) Math.cos(Math.toRadians(yaw - 90));
 
-        position.x -= xOffset;
-        position.z += zOffset;
+        position.x += xOffset;
+        position.z -= zOffset;
     }
 
     // Public Method: Strafe the camera to the righ relative to current yaw rotation
@@ -136,25 +136,25 @@ public class FPCameraController {
         float xOffset = distance * (float) Math.sin(Math.toRadians(yaw + 90));
         float zOffset = distance * (float) Math.cos(Math.toRadians(yaw + 90));
 
-        position.x -= xOffset;
-        position.z += zOffset;
+        position.x += xOffset;
+        position.z -= zOffset;
     }
 
     // Public Method: Move camera up by a certain distance
     public void moveUp(float distance) {
-        position.y -= distance;
+        position.y += distance;
     }
 
     // Public Method: Move camera down by a certain distance
     public void moveDown(float distance) {
-        position.y += distance;
+        position.y -= distance;
     }
 
     // Public Method: Translate and rotate the local modelview matrix to look through the camera plane
     public void lookThrough() {
         glRotatef(pitch, 1.0f, 0.0f, 0.0f); // rotate the pitch around the x axis
         glRotatef(yaw, 0.0f, 1.0f, 0.0f); // rotate the yaw around the y axis
-        glTranslatef(position.x, position.y, position.z); // translate to the position vector's location
+        glTranslatef(-position.x, -position.y, -position.z); // translate to the position vector's location
     }
 
     // Public Method: Handles camera's movement based on keyboard input
@@ -195,12 +195,12 @@ public class FPCameraController {
         float dy = 0.0f;
         float dt = 0.0f;
 
-        float lastTime = 0.0f; // time of the last frame
+        long lastTime = 0; // time of the last frame
         long time = 0;
 
         // Sensitivity and movement speed settings
         float mouseSensitivity = 0.04f;
-        float movementSpeed = 0.05f;
+        float movementSpeed = 3.0f;
 
         Mouse.setGrabbed(true); // grab and hide mouse cursor
 
