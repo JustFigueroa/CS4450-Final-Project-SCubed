@@ -1,12 +1,14 @@
 /*****************************************************************************
- *   file: SingleCube.java
- *   author:
- *   class: CS 4450 - Computer Graphics
+ *   File: SingleCube.java
+ *   Author: Jose Salas
+ *   Contributors: Keanu Arao
+ *   Class: CS 4450 - Computer Graphics
  *
- *   assignment: Final Program 
- *   date last modified:
+ *   Assignment: Final Program 
+ *   Date last modified:
  *
- *   purpose: 
+ *   Purpose: Uses a provided cube render from course material to implement
+ *            the single cube for checkpoint 1.
  *
  **************************************************************************** */
 
@@ -16,10 +18,15 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class SingleCube {
     
+    // Public Method: SingleCube
+    // Purpose: Default constructor
     public SingleCube(){};
    
+    // Public Method: render
+    // Purpose: Renders the 3D cube using code from the CS4450 "3D Object Representation" lecture slides
     public void render(){
         try{
+            // Top
             glBegin(GL_POLYGON);
                 glColor3f(1.0f, 0.5f, 0.5f);
                 glVertex3f( 1.0f, 1.0f, -1.0f);
@@ -27,7 +34,7 @@ public class SingleCube {
                 glVertex3f(-1.0f, 1.0f,  1.0f);
                 glVertex3f( 1.0f, 1.0f,  1.0f);
             glEnd();
-                //bottom
+            // Bottom
             glBegin(GL_POLYGON);
                 glColor3f(0.0f, 1.0f, 0.0f);
                 glVertex3f( 1.0f,-1.0f,  1.0f);
@@ -35,7 +42,7 @@ public class SingleCube {
                 glVertex3f(-1.0f,-1.0f, -1.0f);
                 glVertex3f( 1.0f,-1.0f, -1.0f);
             glEnd();    
-                // front
+            // Front
             glBegin(GL_POLYGON);
                 glColor3f(1.0f, 1.0f, 1.0f);
                 glVertex3f( 1.0f, 1.0f, 1.0f);
@@ -43,7 +50,7 @@ public class SingleCube {
                 glVertex3f(-1.0f,-1.0f, 1.0f);
                 glVertex3f( 1.0f,-1.0f, 1.0f);
             glEnd();    
-                //back
+            // Back
             glBegin(GL_POLYGON);
                 glColor3f(0.0f, 1.0f, 1.0f);
                 glVertex3f( 1.0f,-1.0f,-1.0f);
@@ -51,7 +58,7 @@ public class SingleCube {
                 glVertex3f(-1.0f, 1.0f,-1.0f);
                 glVertex3f( 1.0f, 1.0f,-1.0f);
             glEnd();   
-                //left
+            // Left
             glBegin(GL_POLYGON);
                 glColor3f(1.0f, 1.0f, 0.0f);
                 glVertex3f(-1.0f, 1.0f, 1.0f);
@@ -59,7 +66,7 @@ public class SingleCube {
                 glVertex3f(-1.0f,-1.0f,-1.0f);
                 glVertex3f(-1.0f,-1.0f, 1.0f);
             glEnd();    
-                //right side
+           // Right
             glBegin(GL_POLYGON);
                 glColor3f(1.0f, 0.0f, 1.0f);
                 glVertex3f(1.0f, 1.0f, -1.0f);
@@ -67,8 +74,9 @@ public class SingleCube {
                 glVertex3f(1.0f,-1.0f,  1.0f);
                 glVertex3f(1.0f,-1.0f, -1.0f);
             glEnd();
+            
             // Black outline 
-            //top
+            // Top
             glBegin(GL_LINE_LOOP);
                 glColor3f(0.0f, 0.0f, 0.0f);
                 glVertex3f( 1.0f, 1.0f,-1.0f);
@@ -77,7 +85,7 @@ public class SingleCube {
                 glVertex3f( 1.0f, 1.0f, 1.0f);
             glEnd();
             
-            //bottom
+            // Bottom
             glBegin(GL_LINE_LOOP);
                 glColor3f(0.0f, 0.0f, 0.0f);
                 glVertex3f( 1.0f,-1.0f, 1.0f);
@@ -86,7 +94,7 @@ public class SingleCube {
                 glVertex3f( 1.0f,-1.0f,-1.0f);
             glEnd();
             
-            //front
+            // Front
             glBegin(GL_LINE_LOOP);
                 glColor3f(0.0f, 0.0f, 0.0f);
                 glVertex3f( 1.0f, 1.0f, 1.0f);
@@ -96,7 +104,7 @@ public class SingleCube {
             
             glEnd();
             
-            //back
+            // Back
             glBegin(GL_LINE_LOOP);
                 glColor3f(0.0f, 0.0f, 0.0f);
                 glVertex3f( 1.0f,-1.0f,-1.0f);
@@ -105,7 +113,7 @@ public class SingleCube {
                 glVertex3f( 1.0f, 1.0f,-1.0f);
             glEnd();
             
-            //left
+            // Left
             glBegin(GL_LINE_LOOP);
                 glColor3f(0.0f, 0.0f, 0.0f);
                 glVertex3f(-1.0f, 1.0f, 1.0f);
@@ -114,7 +122,7 @@ public class SingleCube {
                 glVertex3f(-1.0f,-1.0f, 1.0f);
             glEnd();
             
-            //right
+            // Right
             glBegin(GL_LINE_LOOP);
                 glColor3f(0.0f, 0.0f, 0.0f);
                 glVertex3f( 1.0f, 1.0f,-1.0f);
