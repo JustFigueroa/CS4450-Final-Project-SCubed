@@ -159,32 +159,29 @@ public class FPCameraController {
 
     // Public Method: Handles camera's movement based on keyboard input
     public void keyboardControls(float movementSpeed, float dt) {
-        /* NOTES FROM LECTURE SLIDES
+
+        float distance = movementSpeed * dt;
         
-        When passing in the distance to move, we times the movementSpeed with the dt. This is a time scale,
-        so if its a slow frame you move more then a fast frame, and on a slow computer you move just as fast 
-        as on a fast computer.
+        // movement controls using w, a, s, d, and arrow keys for traversing the x and z planes
+        if (Keyboard.isKeyDown(Keyboard.KEY_W) || Keyboard.isKeyDown(Keyboard.KEY_UP)) {
+            walkFoward(distance);
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_S) || Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
+            walkBackwards(distance);
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_A) || Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+            strafeLeft(distance);
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_D) || Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+            strafeRight(distance);
+        }
         
-        ***BUG***
-        When passing the movementSpeed times dt in to the movement methods no movement change in camera's position
-         */
-        if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-            walkFoward(movementSpeed);
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-            walkBackwards(movementSpeed);
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-            strafeLeft(movementSpeed);
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-            strafeRight(movementSpeed);
-        }
+        // movement controls for vertical movement along the y plane
         if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-            moveUp(movementSpeed);
+            moveUp(distance);
         }
         if (Keyboard.isKeyDown(Keyboard.KEY_E)) {
-            moveDown(movementSpeed);
+            moveDown(distance);
         }
     }
 
@@ -195,7 +192,7 @@ public class FPCameraController {
         float dy = 0.0f;
         float dt = 0.0f;
 
-        long lastTime = 0; // time of the last frame
+        long lastTime = Sys.getTime(); // time of the last frame
         long time = 0;
 
         // Sensitivity and movement speed settings
@@ -205,10 +202,11 @@ public class FPCameraController {
         Mouse.setGrabbed(true); // grab and hide mouse cursor
 
         SingleCube cube = new SingleCube();
+        
         while (!Display.isCloseRequested() && !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
             //Calculate delta time for this frame
             time = Sys.getTime();
-            dt = (time - lastTime);
+            dt = (float) (time - lastTime) / Sys.getTimerResolution();
             lastTime = time;
 
             // Get the change in mouse's x and y position since last call of Mouse.getDX() and Mouse.getDY()
