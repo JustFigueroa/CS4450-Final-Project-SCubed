@@ -11,7 +11,7 @@
  *   a 3D scene.
  *
  **************************************************************************** */
-package final_program.camera;
+package Main.camera;
 
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.input.Keyboard;
@@ -20,7 +20,7 @@ import static org.lwjgl.opengl.GL11.*;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
 
-import final_program.render.SingleCube;
+import Main.render.SingleCube;
 
 public class FPCameraController {
 

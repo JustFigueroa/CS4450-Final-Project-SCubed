@@ -12,7 +12,7 @@
  *
  **************************************************************************** */
 
-package final_program.render;
+package Main.render;
 
 import static org.lwjgl.opengl.GL11.*;
 

@@ -23,7 +23,7 @@ import org.lwjgl.opengl.DisplayMode;
 import static org.lwjgl.opengl.GL11.*;
 import org.lwjgl.util.glu.GLU;
 
-import final_program.camera.FPCameraController;
+import Main.camera.FPCameraController;
 
 public class Main {
     
