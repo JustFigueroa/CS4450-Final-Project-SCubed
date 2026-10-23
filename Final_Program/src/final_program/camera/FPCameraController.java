@@ -190,7 +190,7 @@ public class FPCameraController {
         if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
             moveUp(distance);
         }
-        if (Keyboard.isKeyDown(Keyboard.KEY_E)) {
+        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
             moveDown(distance);
         }
     }
