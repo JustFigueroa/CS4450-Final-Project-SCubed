@@ -4,7 +4,7 @@
  */
 
 /** ***************************************************************************
- *   File: Final_Program.java
+ *   File: Main.java
  *   Author: Jose Salas
  *   Contributors: Justin Figueroa, Keanu Arao
  *   Class: CS 4450 - Computer Graphics
@@ -16,7 +16,7 @@
  *            display window and establishing a 3D projection using the
  *            CameraController and SingleCube Java classes.
  **************************************************************************** */
-package final_program;
+package Main;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -25,14 +25,14 @@ import org.lwjgl.util.glu.GLU;
 
 import final_program.camera.FPCameraController;
 
-public class Final_Program {
+public class Main {
     
     private DisplayMode displayMode;
     private FPCameraController fp;
     
     // Public Method: Final_Program (Constructor)
     // Purpose: Acts as the default constructor that initializes the instance variables
-    public Final_Program() {
+    public Main() {
         fp = new FPCameraController(0.0f, 0.0f, 3.0f);
     }
     
@@ -96,7 +96,7 @@ public class Final_Program {
     // Public Method: main
     // Purpose: Instantiates the main class and starts execution
     public static void main(String[] args) {
-        Final_Program program = new Final_Program();
+        Main program = new Main();
         program.start();
     }
     
