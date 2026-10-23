@@ -4,20 +4,17 @@
  */
 
 /** ***************************************************************************
- *   file: Final_Program.java
- *   author: Jose Salas
- *   contributors: Justin Figueroa
- *   class: CS 4450 - Computer Graphics
+ *   File: Final_Program.java
+ *   Author: Jose Salas
+ *   Contributors: Justin Figueroa, Keanu Arao
+ *   Class: CS 4450 - Computer Graphics
  *
- *   assignment: Final Program
- *   date last modified: 10/21/2026
+ *   Assignment: Final Program
+ *   Date last modified: 10/22/2026
  *
- *   purpose:
- * 
- * 
- *   [NOTE] : (May not be general) The Java Platform in the Libraries Properties
- *              may have to be changed for each person running program.
- *            Also remember to edit VM options
+ *   Purpose: Serves as starting point for the application, initializing the
+ *            display window and establishing a 3D projection using the
+ *            CameraController and SingleCube Java classes.
  **************************************************************************** */
 package final_program;
 
@@ -31,10 +28,17 @@ import final_program.camera.FPCameraController;
 public class Final_Program {
     
     private DisplayMode displayMode;
-    private FPCameraController fp = new FPCameraController(0.0f, 0.0f, 3.0f);
+    private FPCameraController fp;
     
-    // method:
-    // purpose:
+    // Public Method: Final_Program (Constructor)
+    // Purpose: Acts as the default constructor that initializes the instance variables
+    public Final_Program() {
+        fp = new FPCameraController(0.0f, 0.0f, 3.0f);
+    }
+    
+    // Public Method: start
+    // Purpose: Directs the application setup by creating the display window,
+    //          configuring the OpenGL settings, and starting the camera controller game loop
     public void start(){
         try {
            createWindow();
@@ -45,8 +49,9 @@ public class Final_Program {
         }
     }
     
-    // method:
-    // purpose:
+    // Public Method: createWindow
+    // Purpose: Configures the window properties, creates the OpenGL display window,
+    //          and identifies matching 640x480 display mode
     public void createWindow() throws Exception{
         Display.setFullscreen(false);
         
@@ -68,8 +73,8 @@ public class Final_Program {
         Display.create();
     }
     
-    // method:
-    // purpose:
+    // Public Method: initGL
+    // Purpose: Sets up a 3D projection matrix using GLU and enables depth testing and client state arrays
     public void initGL() {
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         
@@ -88,8 +93,8 @@ public class Final_Program {
         
     }
   
-    // method:
-    // purpose:
+    // Public Method: main
+    // Purpose: Instantiates the main class and starts execution
     public static void main(String[] args) {
         Final_Program program = new Final_Program();
         program.start();

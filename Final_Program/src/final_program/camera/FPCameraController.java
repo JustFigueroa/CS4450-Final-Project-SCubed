@@ -1,13 +1,13 @@
 /** ***************************************************************************
- *   file: FPCameraController.java
- *   author: Jose Salas
- *   contributors: Keanu Arao
- *   class: CS 4450 - Computer Graphics
+ *   File: FPCameraController.java
+ *   Author: Jose Salas
+ *   Contributors: Keanu Arao
+ *   Class: CS 4450 - Computer Graphics
  *
- *   assignment: Final Program
- *   date last modified: 10/22/2026
+ *   Assignment: Final Program
+ *   Date last modified: 10/22/2026
  *
- *   purpose: Implements the first-person camera controller for navigating
+ *   Purpose: Implements the first-person camera controller for navigating
  *   a 3D scene.
  *
  **************************************************************************** */
@@ -93,17 +93,20 @@ public class FPCameraController {
         return this.pitch;
     }
 
-    // Public Method: Increment the camera's current yaw rotation
+    // Public Method: yaw
+    // Purpose: Increment the camera's current yaw rotation
     public void yaw(float amount) {
         yaw += amount;
     }
 
-    // Public Method: Increment the camera's current pitch rotation
+    // Public Method: pitch
+    // Purpose: Increment the camera's current pitch rotation
     public void pitch(float amount) {
         pitch -= amount;
     }
 
-    // Public Method: Move camera foward relative to current yaw rotation
+    // Public Method: walkForward
+    // Purpose: Move camera foward relative to current yaw rotation
     public void walkFoward(float distance) {
         float xOffset = distance * (float) Math.sin(Math.toRadians(yaw));
         float zOffset = distance * (float) Math.cos(Math.toRadians(yaw));
@@ -113,7 +116,8 @@ public class FPCameraController {
         position.z -= zOffset;
     }
 
-    // Public Method: Move camera backwards relative to current yaw rotation
+    // Public Method: walkBackwards
+    // Purpose: Move camera backwards relative to current yaw rotation
     public void walkBackwards(float distance) {
         float xOffset = distance * (float) Math.sin(Math.toRadians(yaw));
         float zOffset = distance * (float) Math.cos(Math.toRadians(yaw));
@@ -122,7 +126,8 @@ public class FPCameraController {
         position.z += zOffset;
     }
 
-    // Public Method: Strafe the camera to the left relative to current yaw rotation
+    // Public Method: strafeLeft
+    // Purpose: Strafe the camera to the left relative to current yaw rotation
     public void strafeLeft(float distance) {
         float xOffset = distance * (float) Math.sin(Math.toRadians(yaw - 90));
         float zOffset = distance * (float) Math.cos(Math.toRadians(yaw - 90));
@@ -131,7 +136,8 @@ public class FPCameraController {
         position.z -= zOffset;
     }
 
-    // Public Method: Strafe the camera to the righ relative to current yaw rotation
+    // Public Method: strafeRight
+    // Purpose: Strafe the camera to the righ relative to current yaw rotation
     public void strafeRight(float distance) {
         float xOffset = distance * (float) Math.sin(Math.toRadians(yaw + 90));
         float zOffset = distance * (float) Math.cos(Math.toRadians(yaw + 90));
@@ -140,24 +146,28 @@ public class FPCameraController {
         position.z -= zOffset;
     }
 
-    // Public Method: Move camera up by a certain distance
+    // Public Method: moveUp
+    // Purpose: Move camera up by a certain distance
     public void moveUp(float distance) {
         position.y += distance;
     }
 
-    // Public Method: Move camera down by a certain distance
+    // Public Method: moveDown
+    // Purpose: Move camera down by a certain distance
     public void moveDown(float distance) {
         position.y -= distance;
     }
 
-    // Public Method: Translate and rotate the local modelview matrix to look through the camera plane
+    // Public Method: lookThrough
+    // Purpose: Translate and rotate the local modelview matrix to look through the camera plane
     public void lookThrough() {
         glRotatef(pitch, 1.0f, 0.0f, 0.0f); // rotate the pitch around the x axis
         glRotatef(yaw, 0.0f, 1.0f, 0.0f); // rotate the yaw around the y axis
         glTranslatef(-position.x, -position.y, -position.z); // translate to the position vector's location
     }
 
-    // Public Method: Handles camera's movement based on keyboard input
+    // Public Method: keyboardControls
+    // Purpose: Handles camera's movement based on keyboard input
     public void keyboardControls(float movementSpeed, float dt) {
 
         float distance = movementSpeed * dt;
@@ -185,7 +195,8 @@ public class FPCameraController {
         }
     }
 
-    // Public Method: Main loop handling input, camera movement, and rendering
+    // Public Method: gameLoop
+    // Purpose: Main loop handling input, camera movement, and rendering
     public void gameLoop() {
         // Initialize delta values used to calcualte movement values
         float dx = 0.0f;
