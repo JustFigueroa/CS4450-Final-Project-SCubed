@@ -2,6 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
+
+/** ***************************************************************************
+ *   File: Final_Program.java
+ *   Author: Jose Salas
+ *   Contributors: Justin Figueroa, Keanu Arao
+ *   Class: CS 4450 - Computer Graphics
+ *
+ *   Assignment: Final Program
+ *   Date last modified: 10/22/2026
+ *
+ *   Purpose: Serves as starting point for the application, initializing the
+ *            display window and establishing a 3D projection using the
+ *            CameraController and SingleCube Java classes.
+ **************************************************************************** */
 package final_program;
 
 import org.lwjgl.opengl.Display;
@@ -14,8 +28,17 @@ import final_program.camera.FPCameraController;
 public class Final_Program {
     
     private DisplayMode displayMode;
-    private FPCameraController fp = new FPCameraController(0.0f, 0.0f, -3.0f);
+    private FPCameraController fp;
     
+    // Public Method: Final_Program (Constructor)
+    // Purpose: Acts as the default constructor that initializes the instance variables
+    public Final_Program() {
+        fp = new FPCameraController(0.0f, 0.0f, 3.0f);
+    }
+    
+    // Public Method: start
+    // Purpose: Directs the application setup by creating the display window,
+    //          configuring the OpenGL settings, and starting the camera controller game loop
     public void start(){
         try {
            createWindow();
@@ -26,6 +49,9 @@ public class Final_Program {
         }
     }
     
+    // Public Method: createWindow
+    // Purpose: Configures the window properties, creates the OpenGL display window,
+    //          and identifies matching 640x480 display mode
     public void createWindow() throws Exception{
         Display.setFullscreen(false);
         
@@ -47,6 +73,8 @@ public class Final_Program {
         Display.create();
     }
     
+    // Public Method: initGL
+    // Purpose: Sets up a 3D projection matrix using GLU and enables depth testing and client state arrays
     public void initGL() {
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         
@@ -65,6 +93,8 @@ public class Final_Program {
         
     }
   
+    // Public Method: main
+    // Purpose: Instantiates the main class and starts execution
     public static void main(String[] args) {
         Final_Program program = new Final_Program();
         program.start();
