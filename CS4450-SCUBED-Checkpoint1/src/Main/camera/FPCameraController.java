@@ -21,6 +21,7 @@ import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
 
 import Main.render.SingleCube;
+import Main.render.Chunk;
 
 public class FPCameraController {
 
@@ -212,7 +213,7 @@ public class FPCameraController {
 
         Mouse.setGrabbed(true); // grab and hide mouse cursor
 
-        SingleCube cube = new SingleCube();
+        Chunk chunk = new Chunk(-30,-15,-20);
         
         while (!Display.isCloseRequested() && !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
             //Calculate delta time for this frame
@@ -235,7 +236,7 @@ public class FPCameraController {
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            cube.render(); // Render the single cube in the scene
+            chunk.render(); // Render the single cube in the scene
 
             Display.update();
             Display.sync(60);

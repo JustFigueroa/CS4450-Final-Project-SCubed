@@ -29,7 +29,7 @@ public class Chunk {
         glVertexPointer(3,GL_FLOAT,0,0L);
         glBindBuffer(GL_ARRAY_BUFFER,VBOColorHandle);
         glColorPointer(3,GL_FLOAT,0,0L);
-        glDrawArrays(GL_QUADS, 0, CHUNK_SIZE * CHUNK_SIZE * 24);
+        glDrawArrays(GL_QUADS, 0, CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE * 24);
         glPopMatrix();
     }
     
@@ -44,7 +44,7 @@ public class Chunk {
         for (float x = 0; x < CHUNK_SIZE; x += 1){
             for (float z = 0; z < CHUNK_SIZE; z+= 1){
                 for (float y = 0; y < CHUNK_SIZE; y+= 1){
-                   VertexPositionData.put(createCube((float)(startX + x * CUBE_LENGTH), (float)(y* CUBE_LENGTH + (int)(CHUNK_SIZE * 0.8)),(float)(startZ + z * CUBE_LENGTH)));
+                   VertexPositionData.put(createCube((float)(startX + x * CUBE_LENGTH), (float)(startY* CUBE_LENGTH + (int)(CHUNK_SIZE * 0.8)),(float)(startZ + z * CUBE_LENGTH)));
                    VertexColorData.put(createCubeVertexCol(getCubeColor(Blocks[(int) x][(int) y][(int) z])));
                 }
             }
