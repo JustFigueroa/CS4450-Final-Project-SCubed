@@ -213,7 +213,7 @@ public class FPCameraController {
 
         Mouse.setGrabbed(true); // grab and hide mouse cursor
 
-        Chunk chunk = new Chunk(-30,-15,-20);
+        Chunk chunk = new Chunk(-30,-90,-20);
         
         while (!Display.isCloseRequested() && !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
             //Calculate delta time for this frame

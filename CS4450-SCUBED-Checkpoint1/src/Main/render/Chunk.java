@@ -44,7 +44,7 @@ public class Chunk {
         for (float x = 0; x < CHUNK_SIZE; x += 1){
             for (float z = 0; z < CHUNK_SIZE; z+= 1){
                 for (float y = 0; y < CHUNK_SIZE; y+= 1){
-                   VertexPositionData.put(createCube((float)(startX + x * CUBE_LENGTH), (float)(startY* CUBE_LENGTH + (int)(CHUNK_SIZE * 0.8)),(float)(startZ + z * CUBE_LENGTH)));
+                   VertexPositionData.put(createCube((float)(startX + x * CUBE_LENGTH), (float)(startY + y * CUBE_LENGTH + (int)(CHUNK_SIZE * 0.8)),(float)(startZ + z * CUBE_LENGTH)));
                    VertexColorData.put(createCubeVertexCol(getCubeColor(Blocks[(int) x][(int) y][(int) z])));
                 }
             }
