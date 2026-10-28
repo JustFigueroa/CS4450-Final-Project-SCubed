@@ -209,7 +209,7 @@ public class FPCameraController {
 
         // Sensitivity and movement speed settings
         float mouseSensitivity = 0.04f;
-        float movementSpeed = 3.0f;
+        float movementSpeed = 10.0f;
 
         Mouse.setGrabbed(true); // grab and hide mouse cursor
 
