@@ -154,19 +154,24 @@ public class Chunk {
                         if (r.nextFloat() > 0.7f){
                             Blocks[x][y][z] = new Block (Block.BlockType.BlockType_Grass);
                         }
-                        else if (r.nextFloat() > 0.4f) {
+                        else if (r.nextFloat() > 0.6f) {
                             Blocks[x][y][z] = new Block(Block.BlockType.BlockType_Sand);
                         }
-
-                        else if (r.nextFloat() > 0.2f) {
+                        else if (r.nextFloat() > 0.5f) {
                             Blocks[x][y][z] = new Block(Block.BlockType.BlockType_Water);
                         } 
-                        else {
+                        else if (r.nextFloat() > 0.4f) {
                             Blocks[x][y][z] = new Block(Block.BlockType.BlockType_Dirt);
+                        }
+                        else if (r.nextFloat() > 0.3f){
+                            Blocks[x][y][z] = new Block(Block.BlockType.BlockType_Stone);
+                        }
+                        else {
+                            Blocks[x][y][z] = new Block(Block.BlockType.BlockType_Bedrock);
+                        }
                     }
                 }
             }
-        }
             
         VBOColorHandle = glGenBuffers();
         VBOVertexHandle = glGenBuffers();
@@ -182,8 +187,7 @@ public class Chunk {
         float offset = (1024/16)/1024f;
         
         switch (block.getID()){
-
-            default:
+            case 1: // Grass texture
                 return new float[]{
                     // Bottom Quad (DOWN =+ y)
                     x + offset * 3, y + offset * 10,
@@ -215,6 +219,138 @@ public class Chunk {
                     x + offset * 4, y + offset * 0, 
                     x + offset * 4, y + offset * 1, 
                     x + offset * 3, y + offset * 1
+                };
+            case 2: // Sand texture
+                return new float[] {
+                    // Bottom 
+                    x + offset * 0, y + offset * 11,
+                    x + offset * 1, y + offset * 11,
+                    x + offset * 1, y + offset * 12,
+                    x + offset * 0, y + offset * 12,
+                    // Top
+                    x + offset * 0, y + offset * 11,
+                    x + offset * 1, y + offset * 11,
+                    x + offset * 1, y + offset * 12,
+                    x + offset * 0, y + offset * 12, 
+                    // Front
+                    x + offset * 0, y + offset * 11,
+                    x + offset * 1, y + offset * 11,
+                    x + offset * 1, y + offset * 12,
+                    x + offset * 0, y + offset * 12,
+                    // Back
+                    x + offset * 0, y + offset * 11,
+                    x + offset * 1, y + offset * 11,
+                    x + offset * 1, y + offset * 12,
+                    x + offset * 0, y + offset * 12,
+                    // Left
+                    x + offset * 0, y + offset * 11,
+                    x + offset * 1, y + offset * 11,
+                    x + offset * 1, y + offset * 12,
+                    x + offset * 0, y + offset * 12,
+                    // Left 
+                    x + offset * 0, y + offset * 11,
+                    x + offset * 1, y + offset * 11,
+                    x + offset * 1, y + offset * 12,
+                    x + offset * 0, y + offset * 12,        
+                };
+            case 3: // water
+                return new float[] {
+                    // Top
+                    x + offset * 0, y + offset * 9,
+                    x + offset * 1, y + offset * 9,
+                    x + offset * 1, y + offset * 10,
+                    x + offset * 0, y + offset * 10,
+                    // Bottom
+                    x + offset * 0, y + offset * 9,
+                    x + offset * 1, y + offset * 9,
+                    x + offset * 1, y + offset * 10,
+                    x + offset * 0, y + offset * 10,
+                    // Front
+                    x + offset * 0, y + offset * 9,
+                    x + offset * 1, y + offset * 9,
+                    x + offset * 1, y + offset * 10,
+                    x + offset * 0, y + offset * 10,
+                    // Back
+                    x + offset * 0, y + offset * 9,
+                    x + offset * 1, y + offset * 9,
+                    x + offset * 1, y + offset * 10,
+                    x + offset * 0, y + offset * 10,
+                    // Left
+                    x + offset * 0, y + offset * 9,
+                    x + offset * 1, y + offset * 9,
+                    x + offset * 1, y + offset * 10,
+                    x + offset * 0, y + offset * 10,
+                    // Right
+                    x + offset * 0, y + offset * 9,
+                    x + offset * 1, y + offset * 9,
+                    x + offset * 1, y + offset * 10,
+                    x + offset * 0, y + offset * 10,    
+                }; 
+            case 4: // Dirt Texture
+                return new float[] {
+                    // Bottom
+                    x + offset * 2, y + offset * 0,
+                    x + offset * 3, y + offset * 0, 
+                    x + offset * 3, y + offset * 1,
+                    x + offset * 2, y + offset * 1,
+                    // Top
+                    x + offset * 2, y + offset * 0,
+                    x + offset * 3, y + offset * 0, 
+                    x + offset * 3, y + offset * 1,
+                    x + offset * 2, y + offset * 1,
+                    // Front
+                    x + offset * 2, y + offset * 0,
+                    x + offset * 3, y + offset * 0, 
+                    x + offset * 3, y + offset * 1,
+                    x + offset * 2, y + offset * 1,
+                    // Back
+                    x + offset * 2, y + offset * 0,
+                    x + offset * 3, y + offset * 0, 
+                    x + offset * 3, y + offset * 1,
+                    x + offset * 2, y + offset * 1,
+                    // Left
+                    x + offset * 2, y + offset * 0,
+                    x + offset * 3, y + offset * 0, 
+                    x + offset * 3, y + offset * 1,
+                    x + offset * 2, y + offset * 1,
+                    // Right
+                    x + offset * 2, y + offset * 0,
+                    x + offset * 3, y + offset * 0, 
+                    x + offset * 3, y + offset * 1,
+                    x + offset * 2, y + offset * 1,
+                };
+            default: // Bedrock
+                return new float[]{
+                    // Bottom Quad (DOWN =+ y)
+                    x + offset * 1, y + offset * 1,
+                    x + offset * 2, y + offset * 1, 
+                    x + offset * 2, y + offset * 2,
+                    x + offset * 1, y + offset * 2,
+                    // Top
+                    x + offset * 1, y + offset * 1,
+                    x + offset * 2, y + offset * 1, 
+                    x + offset * 2, y + offset * 2,
+                    x + offset * 1, y + offset * 2,
+                    // Front Quad
+                    x + offset * 1, y + offset * 1,
+                    x + offset * 2, y + offset * 1, 
+                    x + offset * 2, y + offset * 2,
+                    x + offset * 1, y + offset * 2,
+                    // Back Quad
+                    x + offset * 1, y + offset * 1,
+                    x + offset * 2, y + offset * 1, 
+                    x + offset * 2, y + offset * 2,
+                    x + offset * 1, y + offset * 2,
+                    // Left Quad
+                    x + offset * 1, y + offset * 1,
+                    x + offset * 2, y + offset * 1, 
+                    x + offset * 2, y + offset * 2,
+                    x + offset * 1, y + offset * 2,
+                    // Right Quad
+                    x + offset * 1, y + offset * 1,
+                    x + offset * 2, y + offset * 1, 
+                    x + offset * 2, y + offset * 2,
+                    x + offset * 1, y + offset * 2
                 };                
         }
         
