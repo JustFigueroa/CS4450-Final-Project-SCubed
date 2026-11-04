@@ -6,7 +6,7 @@
 /** ***************************************************************************
  *   File: Main.java
  *   Author: Jose Salas
- *   Contributors: Justin Figueroa, Keanu Arao
+ *   Contributors: Justin Figueroa, Keanu Arao, Adam Gonzalez
  *   Class: CS 4450 - Computer Graphics
  *
  *   Assignment: Final Program

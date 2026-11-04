@@ -4,7 +4,6 @@
  */
 package Main.render;
 import java.nio.FloatBuffer;
-import java.util.Random;
 import org.lwjgl.BufferUtils;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL15.*;
@@ -26,10 +25,11 @@ public class Chunk {
     
     private Texture texture;
     
+    private int vertexCount;
+    
     private int StartX;
     private int StartY;
-    private int StartZ; 
-    private Random r;
+    private int StartZ;
     
     public void render(){
         glPushMatrix();
@@ -43,7 +43,7 @@ public class Chunk {
         glBindTexture(GL_TEXTURE_2D, 1);
         glTexCoordPointer(2, GL_FLOAT, 0, 0L);
         
-        glDrawArrays(GL_QUADS, 0, CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE * 24);
+        glDrawArrays(GL_QUADS, 0, vertexCount);
         glPopMatrix();
     }
     
@@ -59,15 +59,40 @@ public class Chunk {
         FloatBuffer VertexTextureData =
                 BufferUtils.createFloatBuffer(CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE * 6 * 12);
         
-        for (float x = 0; x < CHUNK_SIZE; x += 1){
-            for (float z = 0; z < CHUNK_SIZE; z+= 1){
-                for (float y = 0; y < CHUNK_SIZE; y+= 1){
-                   VertexPositionData.put(createCube((float)(startX + x * CUBE_LENGTH), (float)(startY + y * CUBE_LENGTH + (int)(CHUNK_SIZE * 0.8)),(float)(startZ + z * CUBE_LENGTH)));
-                   VertexColorData.put(createCubeVertexCol(getCubeColor(Blocks[(int) x][(int) y][(int) z])));
-                   VertexTextureData.put(createTexCube((float) 0, (float) 0, Blocks[(int) x][(int) y][(int) z]));
+        vertexCount = 0;
+
+        for (int x = 0; x < CHUNK_SIZE; x++) {
+            for (int z = 0; z < CHUNK_SIZE; z++) {
+                for (int y = 0; y < CHUNK_SIZE; y++) {
+
+                    Block block = Blocks[x][y][z];
+
+                    // null represents air, so don't create a cube.
+                    if (block == null) {
+                        continue;
+                    }
+
+                    VertexPositionData.put(createCube(
+                            startX + x * CUBE_LENGTH,
+                            startY + y * CUBE_LENGTH + (int) (CHUNK_SIZE * 0.8),
+                            startZ + z * CUBE_LENGTH
+                    ));
+
+                    VertexColorData.put(
+                            createCubeVertexCol(getCubeColor(block))
+                    );
+
+                    VertexTextureData.put(
+                            createTexCube(0, 0, block)
+                    );
+
+                    // Six faces with four vertices each.
+                    vertexCount += 24;
                 }
             }
         }
+        
+        
         VertexPositionData.flip();
         VertexColorData.flip();
         VertexTextureData.flip();
@@ -139,39 +164,63 @@ public class Chunk {
     private float[] getCubeColor(Block block){
         return new float[] {1, 1, 1};
     }
+    
+    private void generateTerrain(int startX, int startZ) {
+        // Arguments: largest feature, persistence, seed.
+        int seed = 12345;
+        SimplexNoise noise = new SimplexNoise(32, 0.5, seed);
+
+        int baseHeight = 15;
+        int heightVariation = 12;
+
+        for (int x = 0; x < CHUNK_SIZE; x++) {
+            for (int z = 0; z < CHUNK_SIZE; z++) {
+
+                // Convert the chunk's start position to block coordinates.
+                int worldX = startX / CUBE_LENGTH + x;
+                int worldZ = startZ / CUBE_LENGTH + z;
+
+                double noiseValue = noise.getNoise(worldX, worldZ);
+
+                int surfaceHeight = baseHeight
+                        + (int) Math.round(noiseValue * heightVariation);
+
+                // Keep the surface within this chunk.
+                surfaceHeight = Math.max(
+                        1,
+                        Math.min(surfaceHeight, CHUNK_SIZE - 1)
+                );
+
+                for (int y = 0; y < CHUNK_SIZE; y++) {
+                    if (y > surfaceHeight) {
+                        Blocks[x][y][z] = null; // Air
+                    } else if (y == 0) {
+                        Blocks[x][y][z] =
+                                new Block(Block.BlockType.BlockType_Bedrock);
+                    } else if (y == surfaceHeight) {
+                        Blocks[x][y][z] =
+                                new Block(Block.BlockType.BlockType_Grass);
+                    } else if (y >= surfaceHeight - 3) {
+                        Blocks[x][y][z] =
+                                new Block(Block.BlockType.BlockType_Dirt);
+                    } else {
+                        Blocks[x][y][z] =
+                                new Block(Block.BlockType.BlockType_Stone);
+                    }
+                }
+            }
+        }
+    }
+    
     public Chunk(int startX, int startY, int startZ){
         try{
             texture = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("lib/terrain.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        r = new Random();
-        Blocks = new Block[CHUNK_SIZE][CHUNK_SIZE][CHUNK_SIZE];
         
-            for (int x = 0; x < CHUNK_SIZE; x++){
-                for (int y = 0; y < CHUNK_SIZE; y++){
-                    for (int z = 0; z < CHUNK_SIZE; z++){
-                        if (r.nextFloat() > 0.7f){
-                            Blocks[x][y][z] = new Block (Block.BlockType.BlockType_Grass);
-                        }
-                        else if (r.nextFloat() > 0.6f) {
-                            Blocks[x][y][z] = new Block(Block.BlockType.BlockType_Sand);
-                        }
-                        else if (r.nextFloat() > 0.5f) {
-                            Blocks[x][y][z] = new Block(Block.BlockType.BlockType_Water);
-                        } 
-                        else if (r.nextFloat() > 0.4f) {
-                            Blocks[x][y][z] = new Block(Block.BlockType.BlockType_Dirt);
-                        }
-                        else if (r.nextFloat() > 0.3f){
-                            Blocks[x][y][z] = new Block(Block.BlockType.BlockType_Stone);
-                        }
-                        else {
-                            Blocks[x][y][z] = new Block(Block.BlockType.BlockType_Bedrock);
-                        }
-                    }
-                }
-            }
+        Blocks = new Block[CHUNK_SIZE][CHUNK_SIZE][CHUNK_SIZE];
+        generateTerrain(startX, startZ);
             
         VBOColorHandle = glGenBuffers();
         VBOVertexHandle = glGenBuffers();
@@ -187,7 +236,7 @@ public class Chunk {
         float offset = (1024/16)/1024f;
         
         switch (block.getID()){
-            case 1: // Grass texture
+            case 0: // Grass texture
                 return new float[]{
                     // Bottom Quad (DOWN =+ y)
                     x + offset * 3, y + offset * 10,
@@ -220,7 +269,7 @@ public class Chunk {
                     x + offset * 4, y + offset * 1, 
                     x + offset * 3, y + offset * 1
                 };
-            case 2: // Sand texture
+            case 1: // Sand texture
                 return new float[] {
                     // Bottom 
                     x + offset * 0, y + offset * 11,
@@ -253,7 +302,7 @@ public class Chunk {
                     x + offset * 1, y + offset * 12,
                     x + offset * 0, y + offset * 12,        
                 };
-            case 3: // water
+            case 2: // water
                 return new float[] {
                     // Top
                     x + offset * 0, y + offset * 9,
@@ -286,7 +335,7 @@ public class Chunk {
                     x + offset * 1, y + offset * 10,
                     x + offset * 0, y + offset * 10,    
                 }; 
-            case 4: // Dirt Texture
+            case 3: // Dirt Texture
                 return new float[] {
                     // Bottom
                     x + offset * 2, y + offset * 0,
