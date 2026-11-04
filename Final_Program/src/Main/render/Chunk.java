@@ -368,6 +368,44 @@ public class Chunk {
                     x + offset * 3, y + offset * 1,
                     x + offset * 2, y + offset * 1,
                 };
+            case 4: // Stone
+                return new float[] {
+                    // Top
+                    x + offset * 1, y + offset * 0,
+                    x + offset * 2, y + offset * 0,
+                    x + offset * 2, y + offset * 1,
+                    x + offset * 1, y + offset * 1,
+
+                    // Bottom
+                    x + offset * 1, y + offset * 0,
+                    x + offset * 2, y + offset * 0,
+                    x + offset * 2, y + offset * 1,
+                    x + offset * 1, y + offset * 1,
+
+                    // Front
+                    x + offset * 1, y + offset * 0,
+                    x + offset * 2, y + offset * 0,
+                    x + offset * 2, y + offset * 1,
+                    x + offset * 1, y + offset * 1,
+
+                    // Back
+                    x + offset * 1, y + offset * 0,
+                    x + offset * 2, y + offset * 0,
+                    x + offset * 2, y + offset * 1,
+                    x + offset * 1, y + offset * 1,
+
+                    // Left
+                    x + offset * 1, y + offset * 0,
+                    x + offset * 2, y + offset * 0,
+                    x + offset * 2, y + offset * 1,
+                    x + offset * 1, y + offset * 1,
+
+                    // Right
+                    x + offset * 1, y + offset * 0,
+                    x + offset * 2, y + offset * 0,
+                    x + offset * 2, y + offset * 1,
+                    x + offset * 1, y + offset * 1
+                };
             default: // Bedrock
                 return new float[]{
                     // Bottom Quad (DOWN =+ y)
