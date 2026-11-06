@@ -7,7 +7,7 @@
  *   Assignment: Final Program 
  *   Date last modified: 11/5/2026
  *
- *   *Provided by course
+ *   *Code provided by course
  *   Purpose: Generates multi-octave Simplex noise for procedural 2D and 3D terrain
  *            heightmaps.
  *            Calculates the necessary number of octaves from feature size, sets

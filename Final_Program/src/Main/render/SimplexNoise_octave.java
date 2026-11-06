@@ -7,7 +7,7 @@
  *   Assignment: Final Program 
  *   Date last modified: 11/5/2026
  *
- *   *Provided by course
+ *   *Code provided by course
  *   Purpose: Implements a single octave of the Simplex Noise algorithm
  *            in 2D, 3D, and 4D space.
  **************************************************************************** */
