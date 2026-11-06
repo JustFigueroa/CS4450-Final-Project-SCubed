@@ -1,7 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+/*****************************************************************************
+ *   File: Chunk.java
+ *   Author: 
+ *   Contributors: Keanu Arao
+ *   Class: CS 4450 - Computer Graphics
+ *
+ *   Assignment: Final Program 
+ *   Date last modified: 11/5/2026
+ *
+ *   Purpose: Represents a 30x30x30 chunk of voxel blocks.
+ *              Procedurally generates 3D terrain using Simplex noise,
+ *              manages block types, generates texture coordinate mappings from
+ *              terrain atlas, and builds and renders Vertex Buffer Objects for
+ *              vertices, colors, and textures
+ **************************************************************************** */
+
 package Main.render;
 import java.nio.FloatBuffer;
 import org.lwjgl.BufferUtils;
@@ -31,6 +43,9 @@ public class Chunk {
     private int StartY;
     private int StartZ;
     
+    // Public Method: Render
+    // Purpose: binds vertex, color, and texture VBO buffers, configures
+    //          the corresponding OpenGL pointers, and renders the chunk geometry
     public void render(){
         glPushMatrix();
         glBindBuffer(GL_ARRAY_BUFFER, VBOVertexHandle);
@@ -47,6 +62,10 @@ public class Chunk {
         glPopMatrix();
     }
     
+    // Public Method: rebuildMesh
+    // Purpose: iterates through all non-air blocks in the chunk, populates
+    //          position, color, and texture coordinate float buffers, and binds them
+    //          to their respective OpenGL VBO handles
     public void rebuildMesh(float startX, float startY, float startZ){
         VBOColorHandle = glGenBuffers();
         VBOVertexHandle = glGenBuffers();
@@ -111,6 +130,9 @@ public class Chunk {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
     
+    // Private Method: createCubeVertexCol
+    // Purpose: duplicates a single RGB color triple across all 24 vertices
+    //          of a cube's six quad faces
     private float[] createCubeVertexCol(float[] CubeColorArray){
         float[] cubeColors = new float [CubeColorArray.length * 4 * 6];
         for (int i = 0; i < cubeColors.length; i++){
@@ -119,6 +141,9 @@ public class Chunk {
         return cubeColors;
     }
     
+    // Public Method: createCube
+    // Purpose: generates and returns the 3D vertex coordinates array for all
+    //          six quad faces of a single cube
     public static float[] createCube(float x, float y, float z){
         int offset = CUBE_LENGTH / 2;
         return new float[]{
@@ -161,10 +186,15 @@ public class Chunk {
         };
     } 
     
+    // Private Method: getCubeColor
+    // Purpose: returns default white RGB color for textured blocks
     private float[] getCubeColor(Block block){
         return new float[] {1, 1, 1};
     }
     
+    // Private Method: generateTerrain
+    // Purpose: samples 2D Simplex noise to determine surface elevations and
+    //          populates the 3D block array with the different block types
     private void generateTerrain(int startX, int startZ) {
         // Arguments: largest feature, persistence, seed.
         int seed = 12345;
@@ -212,6 +242,10 @@ public class Chunk {
         }
     }
     
+    // Public Method: Chunk
+    // Purpose: Constructor that loads the terrain texture sheet, initializes
+    //          the 3D block array, procedurally generates terrain, generates VBO handles
+    //          and triggers the initial mesh build
     public Chunk(int startX, int startY, int startZ){
         try{
             texture = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("lib/terrain.png"));
@@ -232,6 +266,9 @@ public class Chunk {
         rebuildMesh(startX, startY, startZ);
     }
     
+    // Public Method: createTexCube
+    // Purpose: Maps and returns UV texture coordinates from the 16x16 terrain
+    //          sprite sheet for each face of a cube based on the block's type ID
     public static float[] createTexCube(float x, float y, Block block){
         float offset = (1024/16)/1024f;
         

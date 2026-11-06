@@ -1,3 +1,17 @@
+/*****************************************************************************
+ *   File: SimplexNoise_octave.java
+ *   Author: Adam Gonzales
+ *   Contributors: Keanu Arao
+ *   Class: CS 4450 - Computer Graphics
+ *
+ *   Assignment: Final Program 
+ *   Date last modified: 11/5/2026
+ *
+ *   *Provided by course
+ *   Purpose: Implements a single octave of the Simplex Noise algorithm
+ *            in 2D, 3D, and 4D space.
+ **************************************************************************** */
+
 package Main.render;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -5,7 +19,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 import javax.imageio.ImageIO;
-
 
 /*
  * A speed-improved simplex noise algorithm for 2D, 3D and 4D in Java.
