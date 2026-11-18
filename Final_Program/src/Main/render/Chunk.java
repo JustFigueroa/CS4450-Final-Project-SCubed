@@ -1,7 +1,7 @@
 /*****************************************************************************
  *   File: Chunk.java
  *   Author: 
- *   Contributors: Keanu Arao
+ *   Contributors: Keanu Arao, Adam Gonzalez
  *   Class: CS 4450 - Computer Graphics
  *
  *   Assignment: Final Program 
@@ -34,6 +34,7 @@ public class Chunk {
     private int VBOVertexHandle;
     private int VBOColorHandle;
     private int VBOTextureHandle;
+    private int VBONormalHandle;
     
     private Texture texture;
     
@@ -58,6 +59,9 @@ public class Chunk {
         glBindTexture(GL_TEXTURE_2D, 1);
         glTexCoordPointer(2, GL_FLOAT, 0, 0L);
         
+        glBindBuffer(GL_ARRAY_BUFFER, VBONormalHandle);
+        glNormalPointer(GL_FLOAT, 0, 0L);
+
         glDrawArrays(GL_QUADS, 0, vertexCount);
         glPopMatrix();
     }
@@ -67,6 +71,7 @@ public class Chunk {
     //          position, color, and texture coordinate float buffers, and binds them
     //          to their respective OpenGL VBO handles
     public void rebuildMesh(float startX, float startY, float startZ){
+        VBONormalHandle = glGenBuffers();
         VBOColorHandle = glGenBuffers();
         VBOVertexHandle = glGenBuffers();
         VBOTextureHandle = glGenBuffers();
@@ -78,6 +83,9 @@ public class Chunk {
         FloatBuffer VertexTextureData =
                 BufferUtils.createFloatBuffer(CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE * 6 * 12);
         
+        FloatBuffer normalData =
+                BufferUtils.createFloatBuffer(CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE * 6 * 12);
+
         vertexCount = 0;
 
         for (int x = 0; x < CHUNK_SIZE; x++) {
@@ -105,6 +113,8 @@ public class Chunk {
                             createTexCube(0, 0, block)
                     );
 
+                    normalData.put(createCubeNormals());
+
                     // Six faces with four vertices each.
                     vertexCount += 24;
                 }
@@ -115,6 +125,7 @@ public class Chunk {
         VertexPositionData.flip();
         VertexColorData.flip();
         VertexTextureData.flip();
+        normalData.flip();
         
         glBindBuffer(GL_ARRAY_BUFFER, VBOVertexHandle);
         glBufferData(GL_ARRAY_BUFFER, VertexPositionData, GL_STATIC_DRAW);
@@ -124,12 +135,40 @@ public class Chunk {
         glBufferData(GL_ARRAY_BUFFER, VertexColorData, GL_STATIC_DRAW);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         
+        glBindBuffer(GL_ARRAY_BUFFER, VBONormalHandle);
+        glBufferData(GL_ARRAY_BUFFER, normalData, GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
         // Bind texture buffers
         glBindBuffer(GL_ARRAY_BUFFER, VBOTextureHandle);
         glBufferData(GL_ARRAY_BUFFER, VertexTextureData, GL_STATIC_DRAW);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
     
+    private float[] createCubeNormals() {
+        float[][] faceNormals = {
+            {0, 1, 0},
+            {0, -1, 0},
+            {0, 0, -1},
+            {0, 0, 1},
+            {-1, 0, 0},
+            {1, 0, 0}
+        };
+
+        float[] normals = new float[72];
+        int index = 0;
+
+        for (float[] normal : faceNormals) {
+            for (int vertex = 0; vertex < 4; vertex++) {
+                for (float component : normal) {
+                    normals[index++] = component;
+                }
+            }
+        }
+
+        return normals;
+    }
+
     // Private Method: createCubeVertexCol
     // Purpose: duplicates a single RGB color triple across all 24 vertices
     //          of a cube's six quad faces
