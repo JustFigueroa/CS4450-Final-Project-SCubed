@@ -24,6 +24,8 @@ import org.lwjgl.input.Mouse;
 
 import Main.render.SingleCube;
 import Main.render.Chunk;
+import Main.render.DayNightCycle;
+import Main.render.Flashlight;
 
 public class FPCameraController {
 
@@ -216,6 +218,8 @@ public class FPCameraController {
         Mouse.setGrabbed(true); // grab and hide mouse cursor
 
         Chunk chunk = new Chunk(-30,-90,-20);
+        DayNightCycle dayNightCycle = new DayNightCycle();
+        Flashlight flashlight = new Flashlight();
         FloatBuffer lightPosition = BufferUtils.createFloatBuffer(4);
         lightPosition.put(new float[]{0.0f, 0.0f, 0.0f, 1.0f}).flip();
         
@@ -236,9 +240,11 @@ public class FPCameraController {
             keyboardControls(movementSpeed, dt);
 
             glLoadIdentity(); // Reset the modelview matrix back to the identity
+            flashlight.update();
             glLight(GL_LIGHT0, GL_POSITION, lightPosition);
             lookThrough(); // Set position to look through camera before drawing
 
+            dayNightCycle.update(dt);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             chunk.render(); // Render the single cube in the scene
