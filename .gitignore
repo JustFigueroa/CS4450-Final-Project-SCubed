@@ -1,3 +1,19 @@
+# NetBeans generated files
 /Final-Project-SCubed/nbproject/private/
 /Final_Program/nbproject/private/
 /Final_Program/build/
+build/
+dist/
+
+# Java compiled files
+*.class
+
+# macOS files
+.DS_Store
+
+# IDE temp files
+*.log
+
+# JVM crash logs
+hs_err_pid*.log
+replay_pid*.log

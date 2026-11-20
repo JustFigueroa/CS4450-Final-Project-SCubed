@@ -1,7 +1,7 @@
 /** ***************************************************************************
  *   File: FPCameraController.java
  *   Author: Jose Salas
- *   Contributors: Keanu Arao
+ *   Contributors: Keanu Arao, Adam Gonzalez
  *   Class: CS 4450 - Computer Graphics
  *
  *   Assignment: Final Program
@@ -13,6 +13,8 @@
  **************************************************************************** */
 package Main.camera;
 
+import java.nio.FloatBuffer;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
@@ -21,6 +23,9 @@ import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
 
 import Main.render.SingleCube;
+import Main.render.Chunk;
+import Main.render.DayNightCycle;
+import Main.render.Flashlight;
 
 public class FPCameraController {
 
@@ -208,11 +213,15 @@ public class FPCameraController {
 
         // Sensitivity and movement speed settings
         float mouseSensitivity = 0.04f;
-        float movementSpeed = 3.0f;
+        float movementSpeed = 10.0f;
 
         Mouse.setGrabbed(true); // grab and hide mouse cursor
 
-        SingleCube cube = new SingleCube();
+        Chunk chunk = new Chunk(-30,-90,-20);
+        DayNightCycle dayNightCycle = new DayNightCycle();
+        Flashlight flashlight = new Flashlight();
+        FloatBuffer lightPosition = BufferUtils.createFloatBuffer(4);
+        lightPosition.put(new float[]{0.0f, 0.0f, 0.0f, 1.0f}).flip();
         
         while (!Display.isCloseRequested() && !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
             //Calculate delta time for this frame
@@ -231,11 +240,14 @@ public class FPCameraController {
             keyboardControls(movementSpeed, dt);
 
             glLoadIdentity(); // Reset the modelview matrix back to the identity
+            flashlight.update();
+            glLight(GL_LIGHT0, GL_POSITION, lightPosition);
             lookThrough(); // Set position to look through camera before drawing
 
+            dayNightCycle.update(dt);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            cube.render(); // Render the single cube in the scene
+            chunk.render(); // Render the single cube in the scene
 
             Display.update();
             Display.sync(60);

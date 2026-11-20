@@ -6,7 +6,7 @@
 /** ***************************************************************************
  *   File: Main.java
  *   Author: Jose Salas
- *   Contributors: Justin Figueroa, Keanu Arao
+ *   Contributors: Justin Figueroa, Keanu Arao, Adam Gonzalez
  *   Class: CS 4450 - Computer Graphics
  *
  *   Assignment: Final Program
@@ -18,6 +18,8 @@
  **************************************************************************** */
 package Main;
 
+import java.nio.FloatBuffer;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import static org.lwjgl.opengl.GL11.*;
@@ -29,6 +31,8 @@ public class Main {
     
     private DisplayMode displayMode;
     private FPCameraController fp;
+    private FloatBuffer lightPosition;
+    private FloatBuffer whiteLight;
     
     // Public Method: Final_Program (Constructor)
     // Purpose: Acts as the default constructor that initializes the instance variables
@@ -90,9 +94,26 @@ public class Main {
         glEnableClientState(GL_COLOR_ARRAY);
         glEnable(GL_DEPTH_TEST);
         
-        
+        // added to enable texture feature
+        glEnable(GL_TEXTURE_2D);
+        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+        initLightArrays();
+        glLight(GL_LIGHT0, GL_POSITION, lightPosition);
+        glLight(GL_LIGHT0, GL_SPECULAR, whiteLight);
+        glLight(GL_LIGHT0, GL_DIFFUSE, whiteLight);
+        glLight(GL_LIGHT0, GL_AMBIENT, whiteLight);
+        glEnable(GL_LIGHTING);
+        glEnable(GL_LIGHT0);
+        glEnableClientState(GL_NORMAL_ARRAY);
     }
-  
+
+    private void initLightArrays() {
+        lightPosition = BufferUtils.createFloatBuffer(4);
+        lightPosition.put(0.0f).put(0.0f).put(0.0f).put(1.0f).flip();
+        whiteLight = BufferUtils.createFloatBuffer(4);
+        whiteLight.put(1.0f).put(1.0f).put(1.0f).put(0.0f).flip();
+    }
+
     // Public Method: main
     // Purpose: Instantiates the main class and starts execution
     public static void main(String[] args) {
