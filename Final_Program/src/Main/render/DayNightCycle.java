@@ -1,3 +1,15 @@
+/*****************************************************************************
+ *   File: DayNightCycle.java
+ *   Author: Adam Gonzales
+ *   Contributors: Keanu Arao
+ *   Class: CS 4450 - Computer Graphics
+ *
+ *   Assignment: Final Program 
+ *   Date last modified: 11/19/2026
+ *
+ *   Purpose: Allows the program to run a working day and night cycle
+ **************************************************************************** */
+
 package Main.render;
 
 import java.nio.FloatBuffer;
@@ -11,6 +23,9 @@ public class DayNightCycle {
     private final FloatBuffer diffuse = BufferUtils.createFloatBuffer(4);
     private float elapsed;
 
+    // Method: update
+    // Purpose: Taking the change of time as a parameter, updates the "time" for the day/night cycle and
+    //          changes the sky color depending on said "time"
     public void update(float deltaTime) {
         elapsed = (elapsed + deltaTime) % CYCLE_SECONDS;
         float daylight = (float) ((Math.cos(2.0 * Math.PI * elapsed / CYCLE_SECONDS) + 1.0) / 2.0);
