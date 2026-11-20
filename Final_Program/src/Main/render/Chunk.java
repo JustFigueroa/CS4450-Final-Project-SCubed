@@ -19,6 +19,7 @@ import java.nio.FloatBuffer;
 import org.lwjgl.BufferUtils;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL15.*;
+import java.util.Random;
 
 //Added to enable texture 
 import org.newdawn.slick.opengl.Texture;
@@ -236,7 +237,8 @@ public class Chunk {
     //          populates the 3D block array with the different block types
     private void generateTerrain(int startX, int startZ) {
         // Arguments: largest feature, persistence, seed.
-        int seed = 12345;
+        Random rand = new Random();
+        int seed = rand.nextInt();
         SimplexNoise noise = new SimplexNoise(32, 0.5, seed);
 
         int baseHeight = 15;
